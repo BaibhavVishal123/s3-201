@@ -1,0 +1,16 @@
+environment:
+  S3Bucket: aws-201-image-transform
+  # S3Event1: s3:ObjectCreated:*
+  S3Event1: s3:ObjectCreated:Put
+  # S3PrefixRules: baibhav/csv/
+  # S3SuffixRules: .xlsm
+
+aws:
+  role: arn:aws:iam::848509801737:role/lambda
+  # vpc:
+  #   securityGroupIds:
+  #     - sg-4c640a3d
+  #   subnetIds:
+  #     - subnet-929918c8
+  #     - subnet-c19cdd89
+  #     - subnet-8ad851a6
