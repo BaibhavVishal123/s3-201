@@ -23,7 +23,17 @@ package:
     - .gitignore 
     - s3-image-transformation-csv.zip
 
+custom:
+  optimize:
+    debug: false
+    minify: false
+    plugins: ['syntax-async-functions', 'transform-async-to-generator']
+    presets: []
+    extensions: ['.js', '.json']
+
+
 plugins:
+ - serverless-plugin-optimize
  - serverless-plugin-existing-s3
 
 functions:
@@ -35,6 +45,6 @@ functions:
           bucket: ${self:provider.environment.S3Bucket}
           events:
             - ${self:provider.environment.S3Event1}
-          # rules: 
-          #   - prefix: ${file(./config/dev.yml):environment.S3PrefixRules}
-          #   - suffix: ${file(./config/dev.yml):environment.S3SuffixRules}
+          rules: 
+            - prefix: ${self:provider.environment.S3PrefixRules}
+            - suffix: ${self:provider.environment.S3SuffixRules}

@@ -10,6 +10,7 @@ pids
 # Packaged Code
 s3-image-transformation-csv.zip
 .serverless
+_optimize
 
 # Dependency directory
 # Commenting this out is preferred by some people, see

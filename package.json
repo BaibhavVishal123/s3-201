@@ -17,9 +17,19 @@
     "async": "^2.6.0",
     "await": "^0.2.6",
     "aws-sdk": "^2.156.0",
+    "csv": "^2.0.0",
+    "csv-parser": "^1.12.0",
+    "request": "^2.83.0",
     "xlsx": "^0.11.10"
   },
   "devDependencies": {
-    "serverless-plugin-existing-s3": "^2.0.3"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "serverless-plugin-existing-s3": "^2.0.3",
+    "serverless-plugin-optimize": "^3.0.4-rc.1"
   }
 }
