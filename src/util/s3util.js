@@ -28,7 +28,7 @@ module.exports = {
                         console.log("error downloading image to s3", fileName);
                     } else {
                         // console.log("body:", body);
-                        console.log("success uploading to s3", fileName);
+                        // console.log("success uploading to s3", fileName);
                     }
                 });
             }

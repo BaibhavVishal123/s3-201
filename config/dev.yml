@@ -4,6 +4,9 @@ environment:
   S3Event1: s3:ObjectCreated:Put
   S3PrefixRules: baibhav/csv/
   S3SuffixRules: .csv
+  DestS3Bucket: aws-201-image-transform
+  DestPrefixCSV: baibhav/reports/
+  DestPrefixImage: baibhav/image/
 
 aws:
   role: arn:aws:iam::848509801737:role/lambda
