@@ -8,26 +8,30 @@ AWS.config = new AWS.Config({
 
 
 // Create the DynamoDB service object
-ddb = new AWS.DynamoDB({ apiVersion: '2012-10-08' });
+ddb = new AWS.DynamoDB.DocumentClient();
 
 module.exports = {
 
-    writePropertyItem(PropertyId, labels, table){
+    writePropertyItem(PropertyId, CustomerId, data, table) {
+        console.log("In Dynamodb Util, \nData:", data, "\nLabels:", data.Labels);
+        
         var params = {
             TableName: 'PropertiesImageLabels',
             Item: {
-                'PropertyId': { N: '001' },
-                'CustomerId': { S: 'Richard Roe' },
-            }
-        };
 
-    // Call DynamoDB to add the item to the table
-    ddb.putItem(params, function (err, data) {
-        if (err) {
-            console.log("Error", err);
-        } else {
-            console.log("Success", data);
-        }
-    });
-}
-}
+                "PropertyId": PropertyId,
+                "CustomerId": CustomerId,
+                "json": data.Labels
+            },
+            "ReturnValues": "ALL_OLD"
+        };
+        ddb.put(params, function (err, data) {
+            if (err) {
+                console.log("Error", err);
+            } else {
+                console.log("Success", data);
+            }
+        });
+
+    }
+};

@@ -9,6 +9,7 @@ var json2csv = require('json2csv');
 const config = require('./config/config');
 var utilFile = require('./src/util/File');
 var s3Util = require('./src/util/s3util');
+var dynamoUtil = require('./src/util/dynamoUtil');
 
 // get reference to S3 client 
 var s3 = new AWS.S3();
@@ -125,23 +126,41 @@ exports.handler = function (event, context, callback) {
             });
         },
 
-        function rekognitionProcessing(imageList, next) {
+        function rekognitionDynamoProcessing(imageList, next) {
             console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
             console.log("From Rekognition Method:", JSON.stringify(imageList));
-            var params = {
-                Image: {
-                    S3Object: {
-                        Bucket: destBucket,
-                        Name: "baibhav/image/CId-1-PId1.jpg"
+
+            for (let i = 0; i < imageList.length; i++) {
+                console.log(imageList[i].fileName);
+                let str = imageList[i].fileName;
+                let cidStart = str.match(/-/i);
+                let cidEnd = str.match(/PId/i);
+                let CId = (str.substring(cidStart.index + 1, cidEnd.index - 1));
+                let pidEnd = str.match(/.jpg/i);
+                let PId = (str.substring(cidEnd.index + 3, pidEnd.index));
+                // console.log("Success: ", myStr);
+                var params = {
+                    Image: {
+                        S3Object: {
+                            Bucket: destBucket,
+                            Name: str
+                        }
+                    },
+                    MaxLabels: 123,
+                    MinConfidence: 40
+                };
+                rekognition.detectLabels(params, function (err, data) {
+                    if (err) console.log(err, err.stack); // an error occurred
+                    else {
+                        // successful response
+                        // console.log("Reko Output: ", JSON.stringify(data));
+                        var table = 'PropertiesImageLabels';
+                        dynamoUtil.writePropertyItem(parseInt(PId), parseInt(CId), data, table);
                     }
-                },
-                MaxLabels: 123,
-                MinConfidence: 40
-            };
-            rekognition.detectLabels(params, function (err, data) {
-                if (err) console.log(err, err.stack); // an error occurred
-                else console.log(data); // successful response
-            });
+                });
+            }
+
+
         }
     ], function (err) {
         if (err) {

@@ -54,4 +54,6 @@ var labels2 = {
         ]
 };
 
-dynamoUtil.writePropertyItem(PropertId, labels, table);
+var PropertyId = 16;
+
+dynamoUtil.writePropertyItem(PropertyId, labels2, table);
