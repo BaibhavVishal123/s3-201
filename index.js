@@ -110,7 +110,7 @@ exports.handler = function (event, context, callback) {
                 data: output,
                 fields: fields
             });
-            console.log(result);
+            console.log("Converting JSON to CSV: ",result);
             s3.putObject({
                 Body: result,
                 Key: csvPrefix + outFileName,
@@ -119,7 +119,7 @@ exports.handler = function (event, context, callback) {
                 if (error) {
                     console.log("error saving file to s3", outFileName);
                 } else {
-                    console.log("success uploading to s3", outFileName);
+                    // console.log("success uploading to s3", outFileName);
                     console.log("Just before passing:", imageList);
                     next(null, imageList);
                 }

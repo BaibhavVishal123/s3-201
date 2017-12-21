@@ -13,7 +13,7 @@ module.exports = {
         };
         request(options, function (error, response, body) {
             if (error || response.statusCode !== 200) {
-                console.log("failed to get image");
+                console.log("failed to get image", URL);
                 console.log(error);
                 if(response.statusCode !== 200){
                     console.log("200 status not received for URL:", options.uri);

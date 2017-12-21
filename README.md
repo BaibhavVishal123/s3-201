@@ -10,7 +10,7 @@ Run "npm install" to install required modules
 ### For CI/CD, install sls globally(preffered)
 serverless version: 1.24.1 <br/>
 use "sls deploy" when changing CI/CD confign <br/>
-use "sls deploy fucnction -f myFunc" when changing just code, and for faster deployment process.<br/>
+use "sls deploy function -f myFunc" when changing just code, and for faster deployment process.<br/>
 <br/>
 Run "sls s3deploy" twice, for configuring S3 put event <br/>
 
